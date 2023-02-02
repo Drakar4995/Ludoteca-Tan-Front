@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Client } from '../model/Client';
 import { ClientService } from '../client.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { ExistException } from 'src/app/core/exception/existsException';
 @Component({
   selector: 'app-client-edit',
   templateUrl: './client-edit.component.html',
@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ClientEditComponent implements OnInit {
   client: Client;
-  check: boolean;
+  errorMessage:string;
   constructor(
     public dialogRef: MatDialogRef<ClientEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,14 +25,16 @@ export class ClientEditComponent implements OnInit {
     }
   }
   onSave() {
-    let check = this.clientService
+    this.clientService
       .saveClient(this.client)
-      .subscribe((result) => {
-        this.check = result.valueOf();
-        if(this.check){
+      .subscribe((result) =>
+        {
           this.dialogRef.close();
-        }
-      });
+        },
+        (error)=>{
+            this.errorMessage = error.error.message;
+        });
+      ;
   }
 
   onClose() {
