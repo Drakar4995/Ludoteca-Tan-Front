@@ -17,11 +17,11 @@ export class ClientService {
     return this.http.delete('http://localhost:8080/clients/'+idClient);
   }
 
-  saveClient(client:Client):Observable <Boolean> {
+  saveClient(client:Client):Observable <Client> {
     let url = 'http://localhost:8080/clients';
 
     if(client.id!=null) url += '/'+client.id;
 
-    return this.http.put<Boolean>(url,client);
+    return this.http.put<Client>(url,client);
   }
 }
