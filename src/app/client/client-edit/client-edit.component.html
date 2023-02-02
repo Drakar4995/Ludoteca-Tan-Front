@@ -28,7 +28,7 @@
       <mat-error>El nombre no puede estar vacío</mat-error>
       
     </mat-form-field>
-    <h2 class="error" *ngIf="check!=null && !check"> Este nombre ya existe</h2>
+    <h2 class="error" *ngIf="errorMessage"> {{errorMessage}}</h2>
   </form>
 
   <div class="buttons">
