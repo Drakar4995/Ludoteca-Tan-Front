@@ -30,6 +30,7 @@ export class AuthorListComponent implements OnInit {
     ngOnInit(): void {
         this.loadPage();
     }
+    
 
     loadPage(event?: PageEvent) {
 

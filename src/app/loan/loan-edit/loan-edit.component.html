@@ -1,0 +1,78 @@
+<div class="container">
+  <!-- <h1 *ngIf="loan.id == null">Crear autor</h1>
+    <h1 *ngIf="loan.id != null">Modificar autor</h1> -->
+
+  <form>
+    <mat-form-field>
+      <mat-label>Identificador</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Identificador"
+        [(ngModel)]="loan.id"
+        name="id"
+        disabled
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nombre del Cliente</mat-label>
+      <mat-select disableRipple [(ngModel)]="this.loan.client" name="clientName" required>
+        <mat-option *ngFor="let client of clients" [value]="client">{{ client.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    
+    <mat-form-field>
+      <mat-label>Nombre del Juego</mat-label>
+      <mat-select disableRipple [(ngModel)]="this.loan.game" name="gameFilter" required>
+        <mat-option *ngFor="let game of games" [value]="game">{{
+          game.title
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de Prestamo</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerStart"
+        [(ngModel)]="this.loan.startDate"
+        name="dateFilter"
+        (dateChange)="resetEndDate()"
+        required
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerStart"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de Devolucion</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="this.loan.endDate"
+        name="dateFilter"
+        [min]="moment(this.loan.startDate).add(1, 'days').toDate()"
+        [max]="moment(this.loan.startDate).add(14, 'days').toDate()"
+        required
+      />
+      
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <h4 class="error" *ngIf="errorMessage">{{ errorMessage }}</h4>
+  </form>
+
+  <div class="buttons">
+    <button mat-stroked-button (click)="onClose()">Cerrar</button>
+    <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+  </div>
+</div>
