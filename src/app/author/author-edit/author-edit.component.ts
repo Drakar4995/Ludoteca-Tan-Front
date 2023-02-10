@@ -36,5 +36,6 @@ export class AuthorEditComponent implements OnInit {
     onClose() {
         this.dialogRef.close();
     }
+    
 
 }
